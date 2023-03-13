@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #465960, #435c64, #25414d);
+            font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        #form {
+            width: 500px;
+            /* margin: 8vh auto 0 auto; */
+            padding: 20px;
+            background-color: whitesmoke;
+            border-radius: 4px;
+        }
+
+        #form h1 {
+            color: #2c3336;
+            text-align: center;
+        }
+
+        #form button {
+            padding: 10px;
+            margin-top: 10px;
+            width: 100%;
+            color: white;
+            font-weight: 600;
+            background-color: rgb(37, 79, 102);
+            border: none;
+            border-radius: 4px;
+        }
+
+        .input-con {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-con input {
+            border: 2px solid #f0f0f0;
+            border-radius: 4px;
+            display: block;
+            font-size: 12px;
+            padding: 10px;
+        }
+
+        .input-con input:focus {
+            outline: 0;
+        }
+
+        .input-con.success input {
+            border-color: #09c372;
+        }
+
+        .input-con.error input {
+            border-color: #ef221b;
+        }
+
+        .input-con .error {
+            color: #ef221b;
+            font-size: 9px;
+            height: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="form" action="/">
+            <h1>Registration</h1>
+            <div class="input-con">
+                <label for="empId">Employee ID</label>
+                <input type="number" name="empId" id="empId">
+                <div class="error"></div>
+            </div>
+            <div class="input-con">
+                <label for="fname">First Name</label>
+                <input type="text" name="fname" id="fname">
+                <div class="error"></div>
+            </div>
+            <div class="input-con">
+                <label for="lname">Last Name</label>
+                <input type="text" name="lname" id="lname">
+                <div class="error"></div>
+            </div>
+            <div class="input-con">
+                <label for="desg">Designation</label>
+                <input type="text" name="desg" id="desg">
+                <div class="error"></div>
+            </div>
+            <div class="input-con">
+                <label for="salary">Salary</label>
+                <input type="number" name="salary" id="salary">
+                <div class="error"></div>
+            </div>
+            <div class="input-con">
+                <label for="location">Location</label>
+                <select name="location" id="location">
+                    <option value="select">Select</option>
+                    <option value="ADI">ADI</option>
+                    <option value="Indore">Indore</option>
+                    <option value="Jaipur">Jaipur</option>
+                </select>
+                <div class="error"></div>
+            </div>
+            <div class="input-con">
+                <label for="age">Age</label>
+                <input type="number" id="age" maxlength="2">
+                <div class="error"></div>
+            </div>
+            <div class="input-con">
+                <label for="DOJ">DOJ</label>
+                <input type="date" name="doj" id="doj">
+                <div class="error"></div>
+            </div>
+            <div class="input-con">
+                <label for="pass">Password</label>
+                <input type="pass" id="pass">
+                <div class="error"></div>
+            </div>
+            <div class="input-con">
+                <label for="conPass">Confirm Password</label>
+                <input type="password" id="conPass">
+                <div class="error"></div>
+            </div>
+            <div class="input-con">
+                <label for="gender">Gender</label>
+                <select id="gender">
+                    <option value="select">Select</option>
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                    <option value="others">others</option>
+                </select>
+                <div class="error"></div>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</body>
+<script>
+    const form = document.getElementById('form')
+    const empId = document.getElementById('empId')
+    const fname = document.getElementById('fname')
+    const lname = document.getElementById('lname')
+    const desg = document.getElementById('desg')
+    const salary = document.getElementById('salary')
+    const location = document.getElementById('location')
+    const age = document.getElementById('age')
+    const doj = document.getElementById('doj')
+    const pass = document.getElementById('pass')
+    const conPass = document.getElementById('conPass')
+    const gender = document.getElementById('gender')
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        validateInputs();
+    });
+
+    const setError = (element, message) => {
+        const inputControl = element.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+
+        errorDisplay.innerText = message;
+        inputControl.classList.add('error');
+        inputControl.classList.remove('success')
+    }
+
+    const setSuccess = element => {
+        const inputControl = element.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+
+        errorDisplay.innerText = '';
+        inputControl.classList.add('success');
+        inputControl.classList.remove('error');
+    };
+
+    const isValidEmail = email => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    const validateInputs = () => {
+        const empIdValue = fname.value.trim()
+        const fnameValue = fname.value.trim()
+        const lnameValue = lname.value.trim()
+        const desgValue = desg.value.trim()
+        const salaryValue = salary.value.trim()
+        const locationValue = location.value.trim()
+        const ageValue = age.value.trim()
+        const dojValue = doj.value.trim()
+        const passValue = pass.value.trim()
+        const conPassValue = conPass.value.trim()
+        const genderValue = gender.value.trim()
+        const btnValue = btn.value.trim()
+
+        if (empIdValue === '') {
+            setError(empId, 'empId is required');
+        } else {
+            setSuccess(empId);
+        }
+
+        if (emailValue === '') {
+            setError(email, 'Email is required');
+        } else if (!isValidEmail(emailValue)) {
+            setError(email, 'Provide a valid email address');
+        } else {
+            setSuccess(email);
+        }
+
+        if (passwordValue === '') {
+            setError(password, 'Password is required');
+        } else if (passwordValue.length < 8) {
+            setError(password, 'Password must be at least 8 character.')
+        } else {
+            setSuccess(password);
+        }
+
+        if (password2Value === '') {
+            setError(password2, 'Please confirm your password');
+        } else if (password2Value !== passwordValue) {
+            setError(password2, "Passwords doesn't match");
+        } else {
+            setSuccess(password2);
+        }
+
+    };
+
+</script>
+
+</html>
