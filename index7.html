@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #465960, #435c64, #25414d);
+      font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+    }
+    #form {
+      width: 500px;
+      /* margin: 8vh auto 0 auto; */
+      padding: 20px;
+      background-color: whitesmoke;
+      border-radius: 4px;
+    }
+    #form h1 {
+      color: #2c3336;
+      text-align: center;
+    }
+    #form button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      color: white;
+      font-weight: 600;
+      background-color: rgb(37, 79, 102);
+      border: none;
+      border-radius: 4px;
+    }
+    .input-con {
+      display: flex;
+      flex-direction: column;
+    }
+    .input-con input {
+      border: 2px solid #f0f0f0;
+      border-radius: 4px;
+      display: block;
+      font-size: 12px;
+      padding: 10px;
+    }
+    .input-con input:focus {
+      outline: 0;
+    }
+    select {
+      outline: none;
+    }
+    .input-con.success input {
+      border-color: #09c372;
+    }
+    .input-con.error input {
+      border-color: #ef221b;
+    }
+    .input-con .error {
+      color: #ef221b;
+      font-size: 9px;
+      height: 13px;
+    }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      appearance: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <form action="/" id="form">
+      <h1>Employee Form</h1>
+      <div class="input-con">
+        <label for="empId">Employee ID</label>
+        <input type="number" name="empId" id="empId">
+        <div class="error"></div>
+      </div>
+      <div class="input-con">
+        <label for="fname">First Name</label>
+        <input type="text" name="fname" id="fname">
+        <div class="error"></div>
+      </div>
+      <div class="input-con">
+        <label for="lname">Last Name</label>
+        <input type="text" name="lname" id="lname">
+        <div class="error"></div>
+      </div>
+      <div class="input-con">
+        <label for="desg">Designation</label>
+        <input type="text" name="desg" id="desg">
+        <div class="error"></div>
+      </div>
+      <div class="input-con">
+        <label for="salary">Salary</label>
+        <input type="number" name="salary" id="salary">
+        <div class="error"></div>
+      </div>
+      <div class="input-con">
+        <label for="loc">Location</label>
+        <select name="loc" id="loc">
+          <option value="select">Select</option>
+          <option value="ADI">ADI</option>
+          <option value="Indore">Indore</option>
+          <option value="Jaipur">Jaipur</option>
+        </select>
+        <div class="error"></div>
+      </div>
+      <div class="input-con">
+        <label for="age">Age</label>
+        <input type="number" name="age" id="age" maxlength="2">
+        <div class="error"></div>
+      </div>
+      <div class="input-con">
+        <label for="doj">DOJ</label>
+        <input type="date" name="doj" id="doj">
+        <div class="error"></div>
+      </div>
+      <div class="input-con">
+        <label for="pass">Password</label>
+        <input type="text" name="pass" id="pass">
+        <div class="error"></div>
+      </div>
+      <div class="input-con">
+        <label for="conPass">Confirm Password</label>
+        <input type="text" name="conPass" id="conPass">
+        <div class="error"></div>
+      </div>
+      <div class="input-con">
+        <label for="gender">Gender</label>
+        <select name="gender" id="gender">
+          <option value="select">Select</option>
+          <option value="male">male</option>
+          <option value="female">female</option>
+          <option value="others">others</option>
+        </select>
+        <div class="error"></div>
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+</body>
+
+<script>
+  const form = document.getElementById('form')
+  const empId = document.getElementById('empId')
+  const fname = document.getElementById('fname')
+  const lname = document.getElementById('lname')
+  const desg = document.getElementById('desg')
+  const salary = document.getElementById('salary')
+  const loc = document.getElementById('loc')
+  const age = document.getElementById('age')
+  const doj = document.getElementById('doj')
+  const pass = document.getElementById('pass')
+  const conPass = document.getElementById('conPass')
+  const gender = document.getElementById('gender')
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    validateIt();
+});
+
+  const setError = (element, message) => {
+    const inputCon = element.parentElement
+    const errorDisplay= inputCon.querySelector('.error')
+
+    errorDisplay.innerText = message
+    inputCon.classList.add('error')
+    inputCon.classList.remove('success')
+  }
+
+  const setSuccess = element => {
+    const inputCon = element.parentElement
+    const errorDisplay = inputCon.querySelector('.error')
+
+    errorDisplay.innerText = ''
+    inputCon.classList.add('success')
+    inputCon.classList.remove('error')
+  }
+
+  const validateIt = () => {
+    const empIdValue = fname.value.trim()
+    const fnameValue = fname.value.trim()
+    const lnameValue = lname.value.trim()
+    const desgValue = desg.value.trim()
+    const salaryValue = salary.value.trim()
+    const locValue = loc.value.trim()
+    const ageValue = age.value.trim()
+    const dojValue = doj.value.trim()
+    const passValue = pass.value.trim()
+    const conPassValue = conPass.value.trim()
+    const genderValue = gender.value.trim()
+
+    if(empIdValue === '')
+      setError(empId, "Employee id is required")
+    else
+      setSuccess(empId)
+    
+    if(fnameValue === '')
+      setError(fname, 'First name is required')
+    else
+      setSuccess(fname)
+
+    if(lnameValue === '')
+      setError(lname, 'Last name is required')
+    else
+      setSuccess(lname)
+
+    if(desgValue === '')
+      setError(desg, 'Designation is required')
+    else
+      setSuccess(desg)
+
+    if(salaryValue === '')
+      setError(salary, 'Salary is required')
+    else
+      setSuccess(salary)
+
+    if(locValue === '')
+      setError(loc, 'Loc is required')
+    else
+      setSuccess(loc)
+
+    if(ageValue === '')
+      setError(ageValue, 'Age is required')
+    else
+      setSuccess(ageValue)
+      
+    if(dojValue === '')
+      setError(doj, 'DOJ is required')
+    else
+      setSuccess(doj)
+
+    if(passValue === '')
+      setError(pass, 'Password is required')
+    else
+      setSuccess(pass)
+
+    if(conPassValue === '')
+      setError(conPass, 'Password Confirmation is required')
+    else
+      setSuccess(conPass)
+
+    if(genderValue === '')
+      setError(genderV, 'Gender is required')
+    else
+      setSuccess(gender)
+  }
+</script>
+</html>
